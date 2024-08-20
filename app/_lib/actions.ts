@@ -4,8 +4,7 @@ import { SignupFormSchema } from "./definitions";
 import { createSession, deleteSession } from "./sessions";
 import { FormState } from "./definitions";
 import { redirect } from "next/navigation";
-import { errors } from "jose";
-import { errorMonitor } from "events";
+
 export async function signup(state: FormState, formData: FormData) {
   //validando
   const validationResult = SignupFormSchema.safeParse({
