@@ -1,5 +1,5 @@
 "use client";
-import { logout } from "../registro/actions";
+import { logout } from "../_lib/actions";
 
 export function LogoutBtn() {
   return (

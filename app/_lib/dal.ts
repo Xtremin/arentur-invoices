@@ -10,11 +10,14 @@ export const verifySession = cache(async () => {
   const cookie = cookies().get("session")?.value;
   const session = await decrypt(cookie);
 
-  if (!session?.userId) {
-    redirect("/login");
+  if (!session?.sessionid) {
+    redirect("/autenticar");
   }
+  const userId = await prisma.session.findUnique({
+    where: { id: session.sessionid },
+  });
 
-  return { isAuth: true, userId: session.userId };
+  return { isAuth: true, userId: userId?.userId };
 });
 
 export const getUser = cache(async () => {
@@ -22,8 +25,8 @@ export const getUser = cache(async () => {
   if (!session) return null;
 
   try {
-    const user = await prisma.user.findMany({ where: { id: session.userId } });
-
+    const data = await prisma.user.findMany({ where: { id: session.userId } });
+    const user = data[0];
     return user;
   } catch (error) {
     console.log("Failed to fetch user");

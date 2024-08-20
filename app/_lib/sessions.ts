@@ -3,12 +3,12 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { prisma } from "@/prisma/client";
 import { redirect } from "next/navigation";
-
+import { SessionPayload } from "./definitions";
 const key = new TextEncoder().encode(process.env.SECRET);
 
 //crear sesion en base de datos
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -34,7 +34,6 @@ export async function createSession(userId: number) {
   });
 
   const sessionid = datasession.id;
-
   const session = await encrypt({ sessionid, expires });
   cookies().set("session", session, {
     httpOnly: true,

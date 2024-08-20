@@ -1,10 +1,9 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { signup } from "../_lib/actions";
+import { login } from "../_lib/actions";
 import Image from "next/image";
-export function SignupForm() {
-  const [state, action] = useFormState(signup, undefined);
+export function LoginForm() {
   const status = useFormStatus();
 
   return (
@@ -19,32 +18,11 @@ export function SignupForm() {
             priority
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Registro de cuenta
+            Iniciar sesión
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action={action} className="space-y-6">
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Nombre de usuario
-              </label>
-              <div className="mt-2">
-                <input
-                  id="username"
-                  name="username"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-              {state?.errors?.username && (
-                <p className="font-semibold text-red-400">
-                  {state.errors.username}
-                </p>
-              )}
-            </div>
-
+          <form action={login} className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -57,11 +35,6 @@ export function SignupForm() {
                 name="email"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6"
               />
-              {state?.errors?.email && (
-                <p className="font-semibold text-red-400">
-                  {state.errors.email}
-                </p>
-              )}
             </div>
 
             <div>
@@ -80,20 +53,6 @@ export function SignupForm() {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6"
                 />
               </div>
-              {state?.errors?.password && (
-                <div>
-                  <p className="font-semibold text-red-400">
-                    La contraseña debe:
-                  </p>
-                  <ul>
-                    {state.errors.password.map((error) => (
-                      <li key={error} className="font-semibold text-red-400">
-                        - {error}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </div>
 
             <div className="pt-7">
@@ -102,7 +61,7 @@ export function SignupForm() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
-                {status.pending ? "Registrando" : "Registrarse"}
+                {status.pending ? "Iniciando" : "Iniciar sesión"}
               </button>
             </div>
           </form>
