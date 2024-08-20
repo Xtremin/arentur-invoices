@@ -18,14 +18,16 @@ export async function signup(state: FormState, formData: FormData) {
   const { username, email, password } = validationResult.data;
   //creando usuario bd
   const bcrypt = require("bcrypt");
-  console.log(password);
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await prisma.user.create({
-    data: { name: username, email: email, password: hashedPassword },
-  });
-  if (!user) return { message: "No se pudo crear el usuario" };
-  await createSession(user.id);
-  redirect("/profile");
+  try {
+    const user = await prisma.user.create({
+      data: { name: username, email: email, password: hashedPassword },
+    });
+    await createSession(user.id);
+    redirect("/profile");
+  } catch (error) {
+    return { message: "Ocurrió un error durante la creación del usuario. Inténtelo mas tarde" };
+  }
 }
 
 export async function login(formData: FormData) {

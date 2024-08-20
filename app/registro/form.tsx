@@ -3,8 +3,9 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { signup } from "../_lib/actions";
 import Image from "next/image";
+import Link from "next/link";
 export function SignupForm() {
-  const [state, action] = useFormState(signup, undefined);
+  const [state, action, isValid] = useFormState(signup, undefined);
   const status = useFormStatus();
 
   return (
@@ -23,6 +24,11 @@ export function SignupForm() {
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <div className="my-2 text-center">
+            {state?.message && (
+              <p className="font-semibold text-red-400">{state.message}</p>
+            )}
+          </div>
           <form action={action} className="space-y-6">
             <div>
               <label
@@ -106,6 +112,15 @@ export function SignupForm() {
               </button>
             </div>
           </form>
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Ya tiene cuenta?
+            <Link
+              href="/autenticar"
+              className="font-semibold leading-6 text-blue-600 hover:text-blue-500 ml-2"
+            >
+              Inicie sesión
+            </Link>
+          </p>
         </div>
       </div>
     </>

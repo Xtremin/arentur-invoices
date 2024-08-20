@@ -3,6 +3,7 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { login } from "../_lib/actions";
 import Image from "next/image";
+import Link from "next/link";
 export function LoginForm() {
   const status = useFormStatus();
 
@@ -65,6 +66,15 @@ export function LoginForm() {
               </button>
             </div>
           </form>
+          <p className="mt-10 text-center text-sm text-gray-500">
+            No tiene cuenta?
+            <Link
+              href="/registro"
+              className="font-semibold leading-6 text-blue-600 hover:text-blue-500 ml-3"
+            >
+              Cree una cuenta
+            </Link>
+          </p>
         </div>
       </div>
     </>
