@@ -24,36 +24,44 @@ export async function signup(state: FormState, formData: FormData) {
       data: { name: username, email: email, password: hashedPassword },
     });
     await createSession(user.id);
-    redirect("/profile");
   } catch (error) {
-    return { message: "Ocurrió un error durante la creación del usuario. Inténtelo mas tarde" };
+    console.log(error);
+    return {
+      message:
+        "Ocurrió un error durante la creación del usuario. Inténtelo mas tarde",
+    };
   }
+  redirect("/profile");
 }
 
-export async function login(formData: FormData) {
+export async function login(state: FormState, formData: FormData) {
   const bcrypt = require("bcrypt");
   const email = formData.get("email");
-  const users = await prisma.user.findMany({
-    select: { email: true, password: true, id: true },
-  });
-  let valid_login: boolean = false;
-  let user: number = -1;
-  users.forEach((element) => {
-    if (
-      element.email === email &&
-      bcrypt.compare(formData.get("password"), element.password)
-    ) {
-      valid_login = true;
-      user = element.id;
+  try {
+    const users = await prisma.user.findMany({
+      select: { email: true, password: true, id: true },
+    });
+    let valid_login: boolean = false;
+    let user: number = -1;
+    users.forEach((element) => {
+      if (
+        element.email === email &&
+        bcrypt.compare(formData.get("password"), element.password)
+      ) {
+        valid_login = true;
+        user = element.id;
+      }
+    });
+    if (valid_login) {
+      try {
+        await createSession(user);
+        redirect("/profile");
+      } catch (error) {
+        console.log("Error:" + error);
+      }
     }
-  });
-  if (valid_login) {
-    try {
-      await createSession(user);
-      redirect("/profile");
-    } catch (error) {
-      console.log("Error:" + error);
-    }
+  } catch (error) {
+    return { message: "No se pudo autenticar el usuario" };
   }
 }
 export async function logout() {

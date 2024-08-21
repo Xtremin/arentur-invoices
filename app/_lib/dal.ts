@@ -5,6 +5,7 @@ import { decrypt } from "@/app/_lib/sessions";
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { prisma } from "@/prisma/client";
+import { SessionPayload } from "./definitions";
 
 export const verifySession = cache(async () => {
   const cookie = cookies().get("session")?.value;
@@ -14,7 +15,7 @@ export const verifySession = cache(async () => {
     redirect("/autenticar");
   }
   const userId = await prisma.session.findUnique({
-    where: { id: session.sessionid },
+    where: { id: +session.sessionid },
   });
 
   return { isAuth: true, userId: userId?.userId };
@@ -29,7 +30,7 @@ export const getUser = cache(async () => {
     const user = data[0];
     return user;
   } catch (error) {
-    console.log("Failed to fetch user");
+    console.log("Error cargando datos del usuario");
     return null;
   }
 });
