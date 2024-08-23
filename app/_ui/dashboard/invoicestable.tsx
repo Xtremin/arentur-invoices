@@ -7,12 +7,12 @@ export default function InvoiceTable() {
     <div className="overflow-x-auto">
       <Table hoverable>
         <Table.Head>
-          <Table.HeadCell>Product name</Table.HeadCell>
-          <Table.HeadCell>Color</Table.HeadCell>
-          <Table.HeadCell>Category</Table.HeadCell>
-          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Cliente</Table.HeadCell>
+          <Table.HeadCell>Tipo</Table.HeadCell>
+          <Table.HeadCell>Servicio</Table.HeadCell>
+          <Table.HeadCell>Monto</Table.HeadCell>
           <Table.HeadCell>
-            <span className="sr-only">Edit</span>
+            <span className="sr-only">Modificar</span>
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
@@ -28,7 +28,7 @@ export default function InvoiceTable() {
                 href="#"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
               >
-                Edit
+                Modificar
               </a>
             </Table.Cell>
           </Table.Row>
@@ -44,7 +44,7 @@ export default function InvoiceTable() {
                 href="#"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
               >
-                Edit
+                Modificar
               </a>
             </Table.Cell>
           </Table.Row>
@@ -60,7 +60,7 @@ export default function InvoiceTable() {
                 href="#"
                 className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
               >
-                Edit
+                Modificar
               </a>
             </Table.Cell>
           </Table.Row>
