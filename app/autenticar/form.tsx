@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { login } from "../_lib/actions";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,7 +71,7 @@ export function LoginForm() {
             </div>
 
             <div className="pt-7">
-              <SubmitBtn message="Iniciar sessión" />
+              <SubmitBtn label="Iniciar sessión" />
             </div>
           </form>
           <p className="mt-10 text-center text-sm text-gray-500">

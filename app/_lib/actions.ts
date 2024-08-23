@@ -53,16 +53,12 @@ export async function login(state: FormState, formData: FormData) {
       }
     });
     if (valid_login) {
-      try {
-        await createSession(user);
-        redirect("/profile");
-      } catch (error) {
-        console.log("Error:" + error);
-      }
+      await createSession(user);
     }
   } catch (error) {
     return { message: "No se pudo autenticar el usuario" };
   }
+  redirect("/profile");
 }
 export async function logout() {
   deleteSession();
